@@ -13,12 +13,12 @@ void *
 enviarnotificacion_1_svc(notificacion *argp, struct svc_req *rqstp)
 {
 	static char * result;
-	printf("\n      Pedidos Asignados            ");
+	printf("\n **     Pedidos Asignados   **         ");
 	printf("\n Cocinero   Tipo HAmburguesa     Cantidad Ingredientes     Nombre");
 	for(int i=0; i<3; i++){
 		if(((*argp).cocineros[i].ocupado==true))
 		 {
-			printf("\n   %d          %d        %d             %s",
+			printf("\n   %d          %d        			%d             	  %s",
 			(*argp).cocineros[i].noCocinero,
 			(*argp).cocineros[i].objHamburguesaAPreparar.tipoHamburguesa,
 			(*argp).cocineros[i].objHamburguesaAPreparar.cantidadIngredientesExtra,

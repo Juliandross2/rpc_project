@@ -9,15 +9,17 @@
 
 void autorizar_cocineros_1(char *host)
 {
+	printf("\nEntrada (Autorizar cocineros)");
 	CLIENT *clnt;
 	int  *result_validarCocinero;
 	int  id_cocinero;
 	int  *result_terminarPedido;
-
+	printf("\nCocinero tratando de autorizarse (Autorizar cocineros)");
 	#ifndef	DEBUG
 	clnt = clnt_create(host, autorizar_cocineros, autorizar_cocineros_version, "udp");
 	if (clnt == NULL) {
-		clnt_pcreateerror (host);
+		printf("\nError: No se pudo establecer conexion con el servidor");
+		clnt_pcreateerror(host);
 		exit (1);
 	}
 	#endif	/* DEBUG */
@@ -66,6 +68,7 @@ void autorizar_cocineros_1(char *host)
 
 int main (int argc, char *argv[])
 {
+	printf("\nInciando en el main de cocinero");
 	char *host;
 
 	if (argc < 2) {
@@ -73,9 +76,9 @@ int main (int argc, char *argv[])
 		exit (1);
 	}
 	host = argv[1];
-
+	printf("\nEstas intentando acceder con el host %s",host);
 
 	autorizar_cocineros_1(host);
-	
+	printf("\nCocinero autorizado para realizar acciones (end main)");
 exit (0);
 }

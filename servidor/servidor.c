@@ -15,7 +15,6 @@ cocinero vectorCocineros[3];
 nodo_hamburguesa filaVirtual[10];
 int cocinerosEnLinea[3] = {0,0,0};
 
-
 void notificar_cocineros_1();
 
 int consultarNumeroCocineroDisponible();
@@ -31,7 +30,7 @@ int consultarNumeroCocineroDisponible()
 	int posicion = -1;
 	for (int i = 0; i < 3; i++)
 	{
-		if (vectorCocineros[i].ocupado == false)
+		if (vectorCocineros[i].ocupado == false && cocinerosEnLinea[i] == 1)//revisar 
 		{
 			posicion = i;
 			break;
@@ -111,13 +110,12 @@ int * seleccionaridcocinero_1_svc(int *argp, struct svc_req *rqstp) {
 	printf("> Validando cocinero %d\n", indexCoc+1);
 
 	//  Validar codigo de cocinero
-	if(indexCoc<0 || indexCoc>3){
+	if(indexCoc<0 || indexCoc>2){
 		result = 0;
 		return &result;
 	}
 
 	// Validar que ya no este conectado
-
 	if( cocinerosEnLinea[indexCoc] != 0){
 		result = 0;
 		return &result;
@@ -129,7 +127,7 @@ int * seleccionaridcocinero_1_svc(int *argp, struct svc_req *rqstp) {
 
 	//Notificar la conexion con 1
 	result = 1;
-
+	printf("Cockineros cocineritos en vector: %d", cocinerosEnLinea[indexCoc]);
 	return &result;
 }
 
