@@ -93,7 +93,7 @@ int *generarturno_1_svc(nodo_hamburguesa *argp, struct svc_req *rqstp)
 	}
 	else
 	{
-		printf("\n El cocinero en la posicion %d esta libre y se asignara a la  hamburguesa con nombre %s",(posicion+1),(*argp).nombreHamburguesa);
+		printf("\n El cocinero en la posicion %d esta libre y se asignara a la hamburguesa con nombre %s",(posicion+1),(*argp).nombreHamburguesa);
 		vectorCocineros[posicion].ocupado=true;
 		vectorCocineros[posicion].objHamburguesaAPreparar=*argp;
 	}
@@ -114,7 +114,6 @@ int * seleccionaridcocinero_1_svc(int *argp, struct svc_req *rqstp) {
 		result = 0;
 		return &result;
 	}
-
 	// Validar que ya no este conectado
 	if( cocinerosEnLinea[indexCoc] != 0){
 		result = 0;
@@ -127,7 +126,6 @@ int * seleccionaridcocinero_1_svc(int *argp, struct svc_req *rqstp) {
 
 	//Notificar la conexion con 1
 	result = 1;
-	printf("Cockineros cocineritos en vector: %d", cocinerosEnLinea[indexCoc]);
 	return &result;
 }
 

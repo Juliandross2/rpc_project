@@ -9,12 +9,10 @@
 
 void autorizar_cocineros_1(char *host)
 {
-	printf("\nEntrada (Autorizar cocineros)");
 	CLIENT *clnt;
 	int  *result_validarCocinero;
 	int  id_cocinero;
 	int  *result_terminarPedido;
-	printf("\nCocinero tratando de autorizarse (Autorizar cocineros)");
 	#ifndef	DEBUG
 	clnt = clnt_create(host, autorizar_cocineros, autorizar_cocineros_version, "udp");
 	if (clnt == NULL) {
@@ -23,17 +21,19 @@ void autorizar_cocineros_1(char *host)
 		exit (1);
 	}
 	#endif	/* DEBUG */
-	printf("\n =====PANEL-COCINERO=====");
-	printf("\n Ingrese el id del cocinero: ");
-	scanf("%d", &id_cocinero);
-	id_cocinero = id_cocinero;
-	printf("\n\n");
-	result_validarCocinero = seleccionaridcocinero_1(&id_cocinero, clnt);
+	do{
+		printf("\n =====PANEL-COCINERO=====");
+		printf("\n Ingrese el id del cocinero: ");
+		scanf("%d", &id_cocinero);
+		//id_cocinero = id_cocinero;
+		printf("\n\n");
+		result_validarCocinero = seleccionaridcocinero_1(&id_cocinero, clnt);
+		if(*result_validarCocinero == 0){
+			printf("\n\nEl id del cocinero no es valido o ya esta en uso %d", *result_validarCocinero);
+		}
+	}while(*result_validarCocinero == 0);
 	if (result_validarCocinero == (int *) NULL) {
 		clnt_perror (clnt, "call failed");
-	}
-	if(*result_validarCocinero == 0){
-		printf("\n\nEl id del cocinero no es valido o ya esta en uso");
 	}
 	else{
 		printf("\n\nEl id del cocinero fue registrado con exito");
@@ -68,7 +68,6 @@ void autorizar_cocineros_1(char *host)
 
 int main (int argc, char *argv[])
 {
-	printf("\nInciando en el main de cocinero");
 	char *host;
 
 	if (argc < 2) {
@@ -76,9 +75,7 @@ int main (int argc, char *argv[])
 		exit (1);
 	}
 	host = argv[1];
-	printf("\nEstas intentando acceder con el host %s",host);
 
 	autorizar_cocineros_1(host);
-	printf("\nCocinero autorizado para realizar acciones (end main)");
 exit (0);
 }
