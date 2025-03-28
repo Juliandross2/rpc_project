@@ -107,7 +107,7 @@ int *generarturno_1_svc(nodo_hamburguesa *argp, struct svc_req *rqstp)
 int * seleccionaridcocinero_1_svc(int *argp, struct svc_req *rqstp) {
 	static int  result;
 	int indexCoc= (*argp)-1;
-	printf("> Validando cocinero %d\n", indexCoc+1);
+	printf("\n Validando cocinero %d\n", indexCoc+1);
 
 	//  Validar codigo de cocinero
 	if(indexCoc<0 || indexCoc>2){
@@ -132,12 +132,12 @@ int * seleccionaridcocinero_1_svc(int *argp, struct svc_req *rqstp) {
 int * terminarpedido_1_svc(int *argp, struct svc_req *rqstp) {
 	static int  result;
 	int indexCoc = (*argp)-1;
-	printf("> Terminando pedido del cocinero %d\n", indexCoc+1);
 
 
 	//Validar si el cocinero tiene un pedido
 	if(!vectorCocineros[indexCoc].ocupado){
 		result = 0;
+		printf("\nEl cocinero %d no estaba ocupado\n", indexCoc+1);
 		return &result;
 	}
 	
@@ -148,20 +148,39 @@ int * terminarpedido_1_svc(int *argp, struct svc_req *rqstp) {
 		vectorCocineros[indexCoc].ocupado=false;
 		notificar_cocineros_1();
 		result = 0;
+		printf("\nTerminando pedido del cocinero %d\n", indexCoc+1);
 		return &result;
 	}
-	//pre. Hay usuarios en la fila
-	
-	//Asignamos al cocinero el siguiente pedido
+	//Si ya hay usuarios en la fila entonces se le asigna el siguiente pedido
 	vectorCocineros[indexCoc].objHamburguesaAPreparar=filaVirtual[0];
 	//Movemos la fila
 	for(int i=0;i<cantidadUsuariosFila-1;i++){
 		filaVirtual[i]=filaVirtual[i+1];
 	}
 	cantidadUsuariosFila--;
-
+	printf("\n Terminando pedido del cocinero %d y asignando nuevo pedido \n", indexCoc+1);
 	//Notificacion a los cocineros
 	notificar_cocineros_1();
+	result = 1;
+	return &result;
+}
+
+int * desconectarcocinero_1_svc(int *argp, struct svc_req *rqstp){
+	static int  result;
+	int indexCoc = (*argp)-1;
+	printf("> Desconectando cocinero %d\n", indexCoc+1);
+
+	//Validar si el cocinero tiene un pedido
+	if(vectorCocineros[indexCoc].ocupado){
+		result = 0;
+		printf("\nEl cocinero aun tiene un pedido pendiente");
+		return &result;
+	}
+	
+	//Se desconecta el cocinero
+	cocinerosEnLinea[indexCoc] = 0;
+	vectorCocineros[indexCoc].ocupado=false;
+
 	result = 1;
 	return &result;
 }

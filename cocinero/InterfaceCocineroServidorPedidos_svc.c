@@ -19,10 +19,10 @@
 static void
 autorizar_cocineros_1(struct svc_req *rqstp, register SVCXPRT *transp)
 {
-	printf("\nautorizar desde el svc\n");
 	union {
 		int seleccionaridcocinero_1_arg;
 		int terminarpedido_1_arg;
+		int desconectarcocinero_1_arg;
 	} argument;
 	char *result;
 	xdrproc_t _xdr_argument, _xdr_result;
@@ -43,6 +43,12 @@ autorizar_cocineros_1(struct svc_req *rqstp, register SVCXPRT *transp)
 		_xdr_argument = (xdrproc_t) xdr_int;
 		_xdr_result = (xdrproc_t) xdr_int;
 		local = (char *(*)(char *, struct svc_req *)) terminarpedido_1_svc;
+		break;
+
+	case desconectarCocinero:
+		_xdr_argument = (xdrproc_t) xdr_int;
+		_xdr_result = (xdrproc_t) xdr_int;
+		local = (char *(*)(char *, struct svc_req *)) desconectarcocinero_1_svc;
 		break;
 
 	default:
@@ -68,7 +74,6 @@ autorizar_cocineros_1(struct svc_req *rqstp, register SVCXPRT *transp)
 int
 main (int argc, char **argv)
 {
-	printf("\nMain de registro\n");
 	register SVCXPRT *transp;
 
 	pmap_unset (autorizar_cocineros, autorizar_cocineros_version);

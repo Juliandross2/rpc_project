@@ -24,6 +24,9 @@ extern  int * seleccionaridcocinero_1_svc(int *, struct svc_req *);
 #define terminarPedido 2
 extern  int * terminarpedido_1(int *, CLIENT *);
 extern  int * terminarpedido_1_svc(int *, struct svc_req *);
+#define desconectarCocinero 3
+extern  int * desconectarcocinero_1(int *, CLIENT *);
+extern  int * desconectarcocinero_1_svc(int *, struct svc_req *);
 extern int autorizar_cocineros_1_freeresult (SVCXPRT *, xdrproc_t, caddr_t);
 
 #else /* K&R C */
@@ -33,6 +36,9 @@ extern  int * seleccionaridcocinero_1_svc();
 #define terminarPedido 2
 extern  int * terminarpedido_1();
 extern  int * terminarpedido_1_svc();
+#define desconectarCocinero 3
+extern  int * desconectarcocinero_1();
+extern  int * desconectarcocinero_1_svc();
 extern int autorizar_cocineros_1_freeresult ();
 #endif /* K&R C */
 

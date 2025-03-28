@@ -59,7 +59,8 @@ void autorizar_cocineros_1(char *host)
 			}
 		}
 		else if(opcion == 0){
-			printf("\n\nCocinero saliendo del sistema");
+			desconectarcocinero_1(&id_cocinero, clnt);
+			printf("\n\nCocinero saliendo del sistema...\n\n");
 			break;
 		}
 	}
